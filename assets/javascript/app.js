@@ -1,6 +1,6 @@
 /*************** VARIABLES ***************/
 var characters = ["Bob Belcher", "Daenerys Targaryen", "Dev Shaw", "Ron Swanson", "Liz Lemon", "Nelson Bighetti", "Mindy Lahiri"];
-//var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + characters + "&limit=10&api_key=dc6zaTOxFJmzC";
+var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + characters + "&limit=10&api_key=dc6zaTOxFJmzC";
 
 /*************** FUNCTIONS ***************/
 function generateButtons() {
@@ -35,16 +35,22 @@ $('#add-character').on("click", function(event) {
 
 
 $.ajax({
-	url: "http://api.giphy.com/v1/gifs/search?q=funny+cat&limit=1&api_key=dc6zaTOxFJmzC",
+	url: queryURL,
 	method: "GET"
 }).done(function(response) {
-	// $('#gif-dump').html(JSON.stringify(response));
-	$('#gif-dump').attr('src', data.data.images.fixed_height.url);
-	// var gifDiv = $("<div class='gif'>");
-	// var imageURL = data.data[0].images.fixed_height.url;
-	// var image = $('<img>').attr('src', url);
-	console.log(data.data.images.fixed_height.url);
-	// gifDiv.append(image);
+	$('#gif-dump').html(JSON.stringify(response));
+	
+	var gifDiv = $("<div class='gif'>");
+	// retrieving the URL for the image
+	var imageURL = response.data[0].images.fixed_height.url;
+	// creating an element to hold the image
+	var image = $('<img>').attr('src', imgURL);
+	// append to div
+	gifDiv.append(image);
+	// putting the entire gif above the previous gifs
+	$("#gif-dump").prepend(gifDiv);
+	console.log(response.data.images.fixed_height.url);
+	
 
 
 });
@@ -55,3 +61,4 @@ generateButtons();
 
 // 	$('#giphyimage').attr('src', data.data[0].images.fixed_height.url);
 //	fixed_height_still
+//	$('#gif-dump').attr('src', response.data.images.fixed_height.url);
