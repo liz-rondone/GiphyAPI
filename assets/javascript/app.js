@@ -1,15 +1,16 @@
 $(document).ready(function(){
+
 	/*************** VARIABLES ***************/
 	var characters = ["Bob Belcher", "Daenerys Targaryen", "Dev Shaw", "Ron Swanson", "Liz Lemon", "Nelson Bighetti", "Mindy Lahiri"];
 
 	clear('#gif-dump');
 	generateButtons();
 
+
 	/*************** FUNCTIONS ***************/
 	function generateButtons() {
 		// CLEAR DIV
 		clear('#buttons-dump');
-
 
 		// create buttons for pre-loaded characters
 		for (var i = 0; i < characters.length; i++) {
@@ -24,6 +25,7 @@ $(document).ready(function(){
 		}
 	}
 
+
 	$('#add-character').on("click", function(event) {
 		// allows button to function without refreshing page
 		event.preventDefault();
@@ -32,7 +34,7 @@ $(document).ready(function(){
 		var userInput = ($('#user-input').val().trim());
 
 		characters.push(userInput);
-		//alert(characters);
+		console.log(characters);
 		
 		generateButtons();
 
@@ -41,14 +43,17 @@ $(document).ready(function(){
 	});
 
 
-	$( document ).on( "click", "#buttons-dump .btn", function() {
-	  console.log('liz');
+	$( document ).on( "click", ".btn", function() {
+	  event.preventDefault();
+	  //console.log('sample');
+	  getGifs();
+	  
 	});
 
 
 	function getGifs (character) {
 
-		var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + character + "&limit=10&api_key=dc6zaTOxFJmzC";
+		var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + characters + "&limit=10&api_key=dc6zaTOxFJmzC";
 
 		$.ajax({
 			url: queryURL,
@@ -65,7 +70,7 @@ $(document).ready(function(){
 				var imageURL = gifObj.images.fixed_height.url;
 
 				// creating an element to hold the image
-				var image = $('<img>').attr('src', imageURL);
+				var image = $('<img>').attr('src', queryURL);
 
 				// append to div
 				gifDiv.append(image);
@@ -77,7 +82,6 @@ $(document).ready(function(){
 
 		});
 	}
-
 
 
 
