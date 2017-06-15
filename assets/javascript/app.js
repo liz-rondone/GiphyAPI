@@ -20,7 +20,7 @@ $(document).ready(function(){
 			//var buttons = '<button name="button" class="btn btn-default">' + characters[i] + '</button>';
 			//$('#gif-dump').append(buttons);
 			var b = $('<button>');
-			b.addClass('btn btn-default');
+			b.addClass('btn btn-warning');
 			b.attr('data-name', characters[i]);
 			b.attr('data-index', i.toString());
 			b.text(characters[i]);
@@ -52,7 +52,7 @@ $(document).ready(function(){
 	});
 
 
-	$('#buttons-dump').on("click", function(character) {
+	$('.btn-warning').on("click", function(character) {
 		var char = $(this).attr("data-name");
 		var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + char + "&limit=10&api_key=dc6zaTOxFJmzC";
 
@@ -66,12 +66,19 @@ $(document).ready(function(){
 			for(i = 0; i < response.data.length; i++) {
 				var gifObj = response.data[i]
 				var gifDiv = $("<div class='gif'>");
-
-				// retrieving the URL for the image
-				var imageURL = gifObj.images.fixed_height_still.url;
+				var gifStill = gifObj.images.fixed_height_still.url;
+				var gifAnimate = gifObj.images.fixed_height.url;
 
 				// creating an element to hold the image
-				var image = $('<img>').attr('src', imageURL);
+				var image = $('<img>').attr('src', gifStill);
+
+				image.addClass('gif-container');
+
+				image.attr('data-state', "still");
+
+				image.attr('data-still', gifStill);
+
+				image.attr('data-animate', gifAnimate);
 
 				// append to div
 				gifDiv.append(image);
@@ -85,51 +92,28 @@ $(document).ready(function(){
 				var pRating = $("<p>").text("Rating: " + gifRating);
 
 				gifDiv.append(pRating);
-				console.log(gifObj);
+				//console.log(char);
 
 				$("#gif-dump").prepend(gifDiv);
 			}
 
-			// var gifDiv = $("<div class='gif-div'>");
-
-			
-
-			// var gifStill = response.data.images.fixed_height_still.url;
-
-			// var gifImg = $("<img>").attr("src", gifStill);
-
-			// gifDiv.append(gifImg);
-
-			
-
-			// $('#gif-dump').html(JSON.stringify(response));
-
-			// var charRating = "<p class='rating'>" + response.Rating + "<p>"
-			// $("#gif-dump").append(charRating);
-			// $(".rating").html(response.Rating);
-
-			// var charGif = "<img>" + response.Poster + "</>"
-			// $('gif-dump').append(charGif);
-			// $("<img>").attr('src', response.Poster);
-
-			// for(i = 0; i < response.data.length; i++) {
-			// 	var gifObj = response.data[i]
-			// 	var gifDiv = $("<div class='gif'>");
-
-			// 	// retrieving the URL for the image
-			// 	var imageURL = gifObj.images.fixed_height.url;
-
-			// 	// creating an element to hold the image
-			// 	var image = $('<img>').attr('src', imageURL);
-
-			// 	// append to div
-			// 	gifDiv.append(image);
-
-			// 	// putting the entire gif above the previous gifs
-			// 	$("#gif-dump").prepend(gifDiv);
-			// 	//console.log(response);
 		});
+
 	})
+
+
+	$('.gif-container').on("click", function() {
+		
+		var state = $(this).attr("data-state");
+
+		if (state === "still") {
+			$(this).attr("src", $(this).attr("data-animate"));
+			$(this).attr("data-state", "animate");
+		} else {
+			$(this).attr("src", $(this).attr("data-still"));
+			$(this).attr("data-state", "still");
+		}
+	});
 
 
 	function clear(element) {
