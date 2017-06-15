@@ -1,10 +1,13 @@
 $(document).ready(function(){
 
 	/*************** VARIABLES ***************/
-	var characters = ["Bob Belcher", "Daenerys Targaryen", "Dev Shaw", "Ron Swanson", "Liz Lemon", "Nelson Bighetti", "Mindy Lahiri"];
+	var characters = ["Tyrion Lannister", "Bob Belcher", "Jessica Jones", "Walter White", "Ron Swanson", "Liz Lemon", "Erlich Bachman", "Mindy Lahiri"];
+
+
 
 	clear('#gif-dump');
 	generateButtons();
+
 
 
 	/*************** FUNCTIONS ***************/
@@ -46,21 +49,17 @@ $(document).ready(function(){
 	$( document ).on( "click", ".btn", function() {
 	  event.preventDefault();
 	  //console.log('sample');
-	  getGifs();
-	  
 	});
 
 
-	function getGifs (character) {
-
-		var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + characters + "&limit=10&api_key=dc6zaTOxFJmzC";
+	$('#buttons-dump').on("click", function(character) {
+		var char = $(this).attr("data-name");
+		var queryURL = "http://api.giphy.com/v1/gifs/search?q=funny+dog&limit=10&api_key=dc6zaTOxFJmzC";
 
 		$.ajax({
 			url: queryURL,
 			method: "GET"
 		}).done(function(response) {
-
-			//$('#gif-dump').html(JSON.stringify(response));
 
 			for(i = 0; i < response.data.length; i++) {
 				var gifObj = response.data[i]
@@ -70,7 +69,7 @@ $(document).ready(function(){
 				var imageURL = gifObj.images.fixed_height.url;
 
 				// creating an element to hold the image
-				var image = $('<img>').attr('src', queryURL);
+				var image = $('<img>').attr('src', imageURL);
 
 				// append to div
 				gifDiv.append(image);
@@ -80,14 +79,57 @@ $(document).ready(function(){
 				//console.log(response);
 			}
 
-		});
-	}
+			// var gifDiv = $("<div class='gif-div'>");
 
+			var gifRating = response.data.rating.url;
+
+			var pRating = $("<p>").text("Rating: " + gifRating);
+
+			gifDiv.append(pRating);
+
+			// var gifStill = response.data.images.fixed_height_still.url;
+
+			// var gifImg = $("<img>").attr("src", gifStill);
+
+			// gifDiv.append(gifImg);
+
+			$("#gif-dump").prepend(gifDiv);
+
+			// $('#gif-dump').html(JSON.stringify(response));
+
+			// var charRating = "<p class='rating'>" + response.Rating + "<p>"
+			// $("#gif-dump").append(charRating);
+			// $(".rating").html(response.Rating);
+
+			// var charGif = "<img>" + response.Poster + "</>"
+			// $('gif-dump').append(charGif);
+			// $("<img>").attr('src', response.Poster);
+
+			// for(i = 0; i < response.data.length; i++) {
+			// 	var gifObj = response.data[i]
+			// 	var gifDiv = $("<div class='gif'>");
+
+			// 	// retrieving the URL for the image
+			// 	var imageURL = gifObj.images.fixed_height.url;
+
+			// 	// creating an element to hold the image
+			// 	var image = $('<img>').attr('src', imageURL);
+
+			// 	// append to div
+			// 	gifDiv.append(image);
+
+			// 	// putting the entire gif above the previous gifs
+			// 	$("#gif-dump").prepend(gifDiv);
+			// 	//console.log(response);
+		});
+	})
 
 
 	function clear(element) {
 		$(element).empty();
 	}
+
+
 })
 
 
