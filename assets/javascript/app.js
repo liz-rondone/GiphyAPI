@@ -54,19 +54,21 @@ $(document).ready(function(){
 
 	$('#buttons-dump').on("click", function(character) {
 		var char = $(this).attr("data-name");
-		var queryURL = "http://api.giphy.com/v1/gifs/search?q=funny+dog&limit=10&api_key=dc6zaTOxFJmzC";
+		var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + char + "&limit=10&api_key=dc6zaTOxFJmzC";
 
 		$.ajax({
 			url: queryURL,
 			method: "GET"
 		}).done(function(response) {
 
+			clear('#gif-dump');
+
 			for(i = 0; i < response.data.length; i++) {
 				var gifObj = response.data[i]
 				var gifDiv = $("<div class='gif'>");
 
 				// retrieving the URL for the image
-				var imageURL = gifObj.images.fixed_height.url;
+				var imageURL = gifObj.images.fixed_height_still.url;
 
 				// creating an element to hold the image
 				var image = $('<img>').attr('src', imageURL);
@@ -76,16 +78,21 @@ $(document).ready(function(){
 
 				// putting the entire gif above the previous gifs
 				$("#gif-dump").prepend(gifDiv);
-				//console.log(response);
+				
+
+				var gifRating = gifObj.rating.url;
+
+				var pRating = $("<p>").text("Rating: " + gifRating);
+
+				gifDiv.append(pRating);
+				console.log(gifObj);
+
+				$("#gif-dump").prepend(gifDiv);
 			}
 
 			// var gifDiv = $("<div class='gif-div'>");
 
-			var gifRating = response.data.rating.url;
-
-			var pRating = $("<p>").text("Rating: " + gifRating);
-
-			gifDiv.append(pRating);
+			
 
 			// var gifStill = response.data.images.fixed_height_still.url;
 
@@ -93,7 +100,7 @@ $(document).ready(function(){
 
 			// gifDiv.append(gifImg);
 
-			$("#gif-dump").prepend(gifDiv);
+			
 
 			// $('#gif-dump').html(JSON.stringify(response));
 
