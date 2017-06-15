@@ -1,11 +1,33 @@
-.btn{
-	margin: 8px 8px 0 0;
+* {box-sizing: border-box;}
+
+.btn-default{
+	margin: 20px 8px 0 0;
+}
+
+.btn-warning{
+	margin: 15px 8px 0 0;
+}
+
+.buttons-container{
+	margin: 20px 0px;
 }
 
 .form-control{
-	margin: 8px 8px 0 0;
+	margin: 20px 8px 0 0;
 }
 
 .rating{
-	
+
+}
+
+.container{
+	margin: 20px;
+}
+
+.well{
+	margin: 20px;
+}
+
+.jumbotron{
+	padding: 30px 30px; 
 }

@@ -65,14 +65,14 @@ $(document).ready(function(){
 
 			for(i = 0; i < response.data.length; i++) {
 				var gifObj = response.data[i]
-				var gifDiv = $("<div class='gif'>");
+				var gifDiv = $("<div class='well col-md-3'>");
 				var gifStill = gifObj.images.fixed_height_still.url;
 				var gifAnimate = gifObj.images.fixed_height.url;
 
 				// creating an element to hold the image
 				var image = $('<img>').attr('src', gifStill);
 
-				image.addClass('gif-container');
+				image.addClass('img-responsive');
 
 				image.attr('data-state', "still");
 
@@ -87,10 +87,10 @@ $(document).ready(function(){
 				$("#gif-dump").prepend(gifDiv);
 				
 
-				var gifRating = gifObj.rating.url;
+				var gifRating = gifObj.rating;
 
 				var pRating = $("<p>").text("Rating: " + gifRating);
-
+				//gifRating.text(JSON.stringify(response));
 				gifDiv.append(pRating);
 				//console.log(char);
 
@@ -103,7 +103,7 @@ $(document).ready(function(){
 
 
 	$('.gif-container').on("click", function() {
-		
+
 		var state = $(this).attr("data-state");
 
 		if (state === "still") {
