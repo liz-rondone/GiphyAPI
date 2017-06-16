@@ -46,13 +46,14 @@ $(document).ready(function(){
 	});
 
 
-	$( document ).on( "click", ".btn", function() {
-	  event.preventDefault();
-	  //console.log('sample');
-	});
+	// $( document ).on( "click", ".btn", function() {
+	//   event.preventDefault();
+	//   //console.log('sample');
+	// });
 
 
 	$('.btn-warning').on("click", function(character) {
+		event.preventDefault();
 		var char = $(this).attr("data-name");
 		var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + char + "&limit=10&api_key=dc6zaTOxFJmzC";
 
@@ -102,7 +103,7 @@ $(document).ready(function(){
 	})
 
 
-	$('.gif-container').on("click", function() {
+	$('#gif-dump').on("click", "img", function() {
 
 		var state = $(this).attr("data-state");
 
@@ -113,6 +114,7 @@ $(document).ready(function(){
 			$(this).attr("src", $(this).attr("data-still"));
 			$(this).attr("data-state", "still");
 		}
+		//console.log(state);
 	});
 
 
@@ -122,13 +124,3 @@ $(document).ready(function(){
 
 
 })
-
-
-
-
-
-
-
-// 	$('#giphyimage').attr('src', data.data[0].images.fixed_height.url);
-//	fixed_height_still
-//	$('#gif-dump').attr('src', response.data.images.fixed_height.url);
