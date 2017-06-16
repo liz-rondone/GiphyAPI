@@ -11,6 +11,8 @@ $(document).ready(function(){
 
 
 	/*************** FUNCTIONS ***************/
+
+	/**** CREATES BUTTONS ****/
 	function generateButtons() {
 		// CLEAR DIV
 		clear('#buttons-dump');
@@ -22,13 +24,15 @@ $(document).ready(function(){
 			var b = $('<button>');
 			b.addClass('btn btn-warning');
 			b.attr('data-name', characters[i]);
-			b.attr('data-index', i.toString());
+			//b.attr('data-index', i.toString());
 			b.text(characters[i]);
 			$('#buttons-dump').append(b);
 		}
 	}
 
 
+
+	/**** BUTTON CREATED WHEN ADD BUTTON CLICKED ****/
 	$('#add-character').on("click", function(event) {
 		// allows button to function without refreshing page
 		event.preventDefault();
@@ -46,14 +50,19 @@ $(document).ready(function(){
 	});
 
 
-	// $( document ).on( "click", ".btn", function() {
-	//   event.preventDefault();
-	//   //console.log('sample');
-	// });
+
+	$( document ).on( "click", ".btn-warning", function() {
+	  event.preventDefault();
+	  // console.log('btn-warning');
+	});
 
 
+
+	/**** BUTTON CLICKED GET GIFS ****/
 	$('.btn-warning').on("click", function(character) {
+
 		event.preventDefault();
+
 		var char = $(this).attr("data-name");
 		var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + char + "&limit=10&api_key=dc6zaTOxFJmzC";
 
@@ -63,10 +72,10 @@ $(document).ready(function(){
 		}).done(function(response) {
 
 			clear('#gif-dump');
-
+console.log('btn-warning');
 			for(i = 0; i < response.data.length; i++) {
 				var gifObj = response.data[i]
-				var gifDiv = $("<div class='well col-md-3'>");
+				var gifDiv = $("<div class='well col-md-4'>");
 				var gifStill = gifObj.images.fixed_height_still.url;
 				var gifAnimate = gifObj.images.fixed_height.url;
 
@@ -103,6 +112,8 @@ $(document).ready(function(){
 	})
 
 
+
+	/**** GIF CLICKED TOGGLE STATES ****/
 	$('#gif-dump').on("click", "img", function() {
 
 		var state = $(this).attr("data-state");
@@ -118,6 +129,8 @@ $(document).ready(function(){
 	});
 
 
+
+	/**** EMPTY ELEMENT ****/
 	function clear(element) {
 		$(element).empty();
 	}
