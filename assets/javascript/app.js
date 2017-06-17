@@ -52,8 +52,8 @@ $(document).ready(function(){
 
 
 	$( document ).on( "click", ".btn-warning", function() {
-	  event.preventDefault();
-	  // console.log('btn-warning');
+		event.preventDefault();
+		console.log('document');
 	});
 
 
@@ -72,7 +72,8 @@ $(document).ready(function(){
 		}).done(function(response) {
 
 			clear('#gif-dump');
-console.log('btn-warning');
+			console.log('btn-warning');
+
 			for(i = 0; i < response.data.length; i++) {
 				var gifObj = response.data[i]
 				var gifDiv = $("<div class='well col-md-4'>");
