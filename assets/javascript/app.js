@@ -41,7 +41,7 @@ $(document).ready(function(){
 		var userInput = ($('#user-input').val().trim());
 
 		characters.push(userInput);
-		console.log(characters);
+		//console.log(characters);
 		
 		generateButtons();
 
@@ -65,7 +65,7 @@ $(document).ready(function(){
 		}).done(function(response) {
 
 			clear('#gif-dump');
-			console.log('btn-info');
+			//console.log('btn-info');
 
 			for(i = 0; i < response.data.length; i++) {
 				var gifObj = response.data[i]
