@@ -52,14 +52,14 @@ $(document).ready(function(){
 
 
 	$( document ).on( "click", ".btn-warning", function() {
-		event.preventDefault();
-		console.log('document');
-	});
+	// 	event.preventDefault();
+	// 	console.log('document');
+	// });
 
 
 
-	/**** BUTTON CLICKED GET GIFS ****/
-	$('.btn-warning').on("click", function(character) {
+	// *** BUTTON CLICKED GET GIFS ***
+	// $('.btn-warning').on("click", function(character) {
 
 		event.preventDefault();
 
