@@ -1,7 +1,7 @@
 $(document).ready(function(){
 
 	/*************** VARIABLES ***************/
-	var characters = ["Tyrion Lannister", "Bob Belcher", "Jessica Jones", "Walter White", "Ron Swanson", "Liz Lemon", "Erlich Bachman", "Mindy Lahiri"];
+	var characters = ["Tyrion Lannister", "Liz Lemon", "Bob Belcher", "Jessica Jones", "Walter White", "Ron Swanson", "Monica Geller", "Barney Stinson", "Mindy Lahiri"];
 
 
 
@@ -22,7 +22,7 @@ $(document).ready(function(){
 			//var buttons = '<button name="button" class="btn btn-default">' + characters[i] + '</button>';
 			//$('#gif-dump').append(buttons);
 			var b = $('<button>');
-			b.addClass('btn btn-warning');
+			b.addClass('btn btn-info');
 			b.attr('data-name', characters[i]);
 			//b.attr('data-index', i.toString());
 			b.text(characters[i]);
@@ -51,15 +51,8 @@ $(document).ready(function(){
 
 
 
-	$( document ).on( "click", ".btn-warning", function() {
-	// 	event.preventDefault();
-	// 	console.log('document');
-	// });
-
-
-
-	// *** BUTTON CLICKED GET GIFS ***
-	// $('.btn-warning').on("click", function(character) {
+	/**** BUTTON CLICKED GETS GIF ****/
+	$( document ).on( "click", ".btn-info", function() {
 
 		event.preventDefault();
 
@@ -72,13 +65,17 @@ $(document).ready(function(){
 		}).done(function(response) {
 
 			clear('#gif-dump');
-			console.log('btn-warning');
+			console.log('btn-info');
 
 			for(i = 0; i < response.data.length; i++) {
 				var gifObj = response.data[i]
-				var gifDiv = $("<div class='well col-md-4'>");
+				var gifDiv = $("<div class='panel panel-info col-md-4'>");
 				var gifStill = gifObj.images.fixed_height_still.url;
 				var gifAnimate = gifObj.images.fixed_height.url;
+
+				var pRating = $("<p>").text("Rating: " + gifRating);
+				pRating.addClass('panel-heading');
+				gifDiv.append(pRating);
 
 				// creating an element to hold the image
 				var image = $('<img>').attr('src', gifStill);
@@ -100,9 +97,7 @@ $(document).ready(function(){
 
 				var gifRating = gifObj.rating;
 
-				var pRating = $("<p>").text("Rating: " + gifRating);
-				//gifRating.text(JSON.stringify(response));
-				gifDiv.append(pRating);
+				
 				//console.log(char);
 
 				$("#gif-dump").prepend(gifDiv);

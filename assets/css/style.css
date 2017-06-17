@@ -4,7 +4,7 @@
 	margin: 20px 8px 0 0;
 }
 
-.btn-warning{
+.btn-info{
 	margin: 15px 8px 0 0;
 }
 
@@ -16,18 +16,38 @@
 	margin: 20px 8px 0 0;
 }
 
-.rating{
-
-}
-
 .container{
-	padding: 20px;
+	margin: 20px auto;
 }
 
-.well{
-	padding: 20px;
+.panel-default{
+	padding: 0px;
 }
 
 .jumbotron{
 	padding: 30px 30px; 
+	text-align: center;
+	background: url(../images/tv-test.jpg) no-repeat center center fixed;
+	-webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+.img-responsive{
+	margin: 15px auto;
+
+}
+
+.col-md-4{
+	padding-left: 0;
+	padding-right: 0;
+}
+
+.panel-heading{
+	margin-bottom: 0px;
+}
+
+.panel{
+	margin: 20px 0px;
 }
